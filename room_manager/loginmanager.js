@@ -2,8 +2,8 @@ const publicIp = require("public-ip");
 var fs = require("fs");
 
 var database = null;
-var serverip = "192.168.0.100";
-var port = "10009";
+var serverip = "35.154.250.202";
+var port = "5000";
 
 exports.initdatabase = function (db) {
   database = db;
