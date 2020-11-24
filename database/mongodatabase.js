@@ -1,5 +1,5 @@
 var MongoClient = require("mongodb").MongoClient;
-var URL = "mongodb://35.154.250.202:27017/desiludo";
+var URL = "mongodb://35.154.250.202:27017/LudoDB";
 
 var state = {
   db: null,
@@ -13,7 +13,7 @@ exports.connect = function (done) {
     { useNewUrlParser: true, useUnifiedTopology: true },
     function (err, client) {
       if (err) return done(err);
-      var db = client.db("desiludo");
+      var db = client.db("LudoDB");
       state.db = db;
       done();
     }
