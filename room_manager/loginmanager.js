@@ -1,7 +1,7 @@
 const publicIp = require("public-ip");
 var fs = require("fs");
 
-var database = null;
+var database = "LudoDB";
 var serverip = "35.154.250.202";
 var port = "5000";
 
