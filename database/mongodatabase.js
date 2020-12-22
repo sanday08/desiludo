@@ -14,7 +14,7 @@ exports.connect = function (done) {
     { useNewUrlParser: true, useUnifiedTopology: true },
     function (err, client) {
       if (err) return done(err);
-      var db = client.db("LudoDB");
+      var db = client.db("ludo");
       state.db = db;
       done();
     }

@@ -2,7 +2,7 @@ const publicIp = require("public-ip");
 var fs = require("fs");
 
 var database = "LudoDB";
-var serverip = "35.154.250.202";
+var serverip = "13.235.31.190";
 var port = "5000";
 
 exports.initdatabase = function (db) {
