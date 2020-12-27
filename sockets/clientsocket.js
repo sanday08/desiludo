@@ -38,6 +38,7 @@ exports.initsocket = function (socket, io) {
     loginmanager.SignUp(socket, data);
   });
   socket.on("REQ_VALID_NAME", function (data) {
+    console.log("Chandu ki chahchi ko..");
     loginmanager.Valid_Name(socket, data);
   });
 
