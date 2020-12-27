@@ -30,6 +30,7 @@ exports.initsocket = function (socket, io) {
   gamemanager.addsocket(socket.id);
 
   socket.on("REQ_LOGIN", function (data) {
+    console.log("Piyush is gOOD bOY....");
     loginmanager.LogIn(socket, data);
   });
 
