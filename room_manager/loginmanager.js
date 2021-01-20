@@ -46,7 +46,7 @@ exports.LogIn = function (socket, userInfo) {
         var mydata = {
           result: "success",
           username: result.username,
-          userid: result.userid,
+          userid: result._id,
           photo: result.photo,
           points: result.points,
           level: result.level,
