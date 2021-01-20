@@ -27,7 +27,7 @@ exports.Check_Rooms = function (socket, data) {
         isBotsActive = 0;
       } else {
         var queryBotsUpdate = {
-          _id: result.result,
+          _id: result._id,
           bet: data.stake_money,
           status: "true",
           is_available: "true",
