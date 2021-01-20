@@ -20,7 +20,7 @@ exports.initdatabase = function (db) {
 
 exports.LogIn = function (socket, userInfo) {
   var collection = database.collection("User_Data");
-  var query = { username: userInfo.username };
+  var query = { username: userInfo.username, password: userInfo.password };
   collection.findOne(query, function (err, result) {
     if (err) console.log(err);
     else {
