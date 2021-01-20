@@ -240,3 +240,33 @@ exports.Get_User_Photo = function (info, socket) {
     }
   );
 };
+exports.TournamentList = function (socket, data) {
+  var collection = database.collection("tournaments");
+  var query = { isActive: "true" };
+  collection.find(query, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      var mydata;
+      if (result == null) {
+        mydata = {
+          result: "failed",
+        };
+      } else {
+        console.log("TTTTTTTTTTTTTTTTTTTT", result);
+        mydata = {
+          result: "success",
+          count: 1,
+          tour_id: result._id,
+          tour_name: result.tournament_name,
+          bet_price: result.tournament_price,
+          game_type: result.game_type,
+          time_limit: result.time_limit,
+          isActive: result.isActive,
+          winning_amount: result.winning_amount,
+        };
+      }
+      socket.emit("GET_TOURNAMENTS_RESULT", mydata);
+    }
+  });
+};

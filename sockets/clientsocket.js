@@ -141,4 +141,11 @@ exports.initsocket = function (socket, io) {
   socket.on("REQ_RESUME", function (data) {
     gamemanager.Resume_Game(socket, data);
   });
+
+  //tournament
+
+  socket.on("REQ_TOURNAMENTS", function (data) {
+    console.log("REQ_TOURNAMENTS....");
+    loginmanager.TournamentList(socket, data);
+  });
 };
