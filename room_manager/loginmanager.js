@@ -35,6 +35,13 @@ exports.LogIn = function (socket, userInfo) {
             if (err) throw err;
           }
         );
+        var dataSocket = {
+          connect: socket.id,
+        };
+        collection.updateOne(query, { $set: dataSocket }, function (err) {
+          if (err) throw err;
+          else console.log("socketit added to login users");
+        });
 
         var mydata = {
           result: "success",
@@ -49,6 +56,7 @@ exports.LogIn = function (socket, userInfo) {
           won_streaks: result.won_streaks,
           referral_count: result.referral_count,
           referral_code: result.referral_code,
+          connect: socket.id,
         };
         console.log("- User: ", result.username, " has logged in");
       }
@@ -76,6 +84,7 @@ exports.SignUp = function (socket, data) {
   var friend_multiplayer = { played: 0, won: 0 };
   var tokens_captured = { mine: 0, opponents: 0 };
   var won_streaks = { current: 0, best: 0 };
+
   var user_data = {
     username: name,
     userid: randomnum,
