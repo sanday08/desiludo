@@ -12,13 +12,14 @@ exports.setsocketio = function (socketio) {
 
 exports.Check_Rooms = function (socket, data) {
   let collection = database.collection("Room_Data");
-
+  console.log("111111111111111111111111111");
   let collectionBots = database.collection("bots");
   var queryBots = {
     bet: data.stake_money,
     status: "true",
     is_available: "true",
   };
+  console.log("22222222222222");
   var isBotsActive = 0;
   collectionBots.findOne(queryBots, function (err, result) {
     if (err) console.log(err);
@@ -43,7 +44,7 @@ exports.Check_Rooms = function (socket, data) {
       }
     }
   });
-
+  console.log("33333333333333");
   collection.find().toArray(function (err, docs) {
     if (err) {
       console.log(err);
