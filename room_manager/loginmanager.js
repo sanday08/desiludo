@@ -253,7 +253,7 @@ exports.TournamentList = function (socket, data) {
           result: "failed",
         };
       } else {
-        console.log("TTTTTTTTTTTTTTTTTTTT", result);
+        console.log("TTTTTTTTTTTTTTTTTTTT", result.length);
         mydata = {
           result: "success",
           count: 1,
