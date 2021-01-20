@@ -82,15 +82,33 @@ exports.Check_Rooms = function (socket, data) {
               "}";
             socket.emit("REQ_CHECK_ROOMS_RESULT", JSON.parse(mydata));
           } else {
-            let mydata = "{" + '"result" : "failed"' + "}";
+            let mydata =
+              "{" +
+              '"result" : "failed"' +
+              '"isBotsActive" : "' +
+              isBotsActive +
+              '"' +
+              "}";
             socket.emit("REQ_CHECK_ROOMS_RESULT", JSON.parse(mydata));
           }
         } else {
-          let mydata = "{" + '"result" : "failed"' + "}";
+          let mydata =
+            "{" +
+            '"result" : "failed"' +
+            '"isBotsActive" : "' +
+            isBotsActive +
+            '"' +
+            "}";
           socket.emit("REQ_CHECK_ROOMS_RESULT", JSON.parse(mydata));
         }
       } else {
-        let mydata = "{" + '"result" : "failed"' + "}";
+        let mydata =
+          "{" +
+          '"result" : "failed"' +
+          '"isBotsActive" : "' +
+          isBotsActive +
+          '"' +
+          "}";
         socket.emit("REQ_CHECK_ROOMS_RESULT", JSON.parse(mydata));
       }
     }
