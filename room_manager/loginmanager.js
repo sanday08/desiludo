@@ -254,17 +254,14 @@ exports.TournamentList = function (socket, data) {
         };
       } else {
         console.log("TTTTTTTTTTTTTTTTTTTT", result.length);
-        mydata = {
-          result: "success",
-          count: 1,
-          tour_id: result._id,
-          tour_name: result.tournament_name,
-          bet_price: result.tournament_price,
-          game_type: result.game_type,
-          time_limit: result.time_limit,
-          isActive: result.isActive,
-          winning_amount: result.winning_amount,
-        };
+        var tCount = result.length;
+        for (var i = 0; i < result.length; i++) {
+          mydata = {
+            result: "success",
+            count: result.length,
+            data: result,
+          };
+        }
       }
       socket.emit("GET_TOURNAMENTS_RESULT", mydata);
     }
