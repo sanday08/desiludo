@@ -113,7 +113,7 @@ exports.Valid_Name = function (socket, data) {
     } else {
       if (docs.length > 0) {
         var rooms_wifi = docs.filter(function (object) {
-          return object.username == data.name;
+          return object.emailid == data.name;
         });
         if (rooms_wifi.length > 0) {
           console.log("already exist user");
