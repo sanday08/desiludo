@@ -55,7 +55,7 @@ exports.LogIn = function (socket, userInfo) {
           tokens_captured: result.tokens_captured,
           won_streaks: result.won_streaks,
           referral_count: result.referral_count,
-          referral_code: result.referral_code,
+          referral_code: result.referral_code.toString(),
           connect: socket.id,
         };
         console.log("- User: ", result.username, " has logged in");
