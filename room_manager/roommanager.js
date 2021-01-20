@@ -121,7 +121,7 @@ exports.CreateRoom = function (socket, userInfo) {
   let collection = database.collection("Room_Data");
   let collectionBots = database.collection("bots");
   var queryBots = {
-    bet: data.stake_money,
+    bet: userInfo.stake_money,
     status: "true",
     is_available: "true",
   };
@@ -134,7 +134,7 @@ exports.CreateRoom = function (socket, userInfo) {
       } else {
         var queryBotsUpdate = {
           _id: result._id,
-          bet: data.stake_money,
+          bet: userInfo.stake_money,
           status: "true",
           is_available: "true",
         };
