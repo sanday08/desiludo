@@ -243,7 +243,7 @@ exports.Get_User_Photo = function (info, socket) {
 exports.TournamentList = function (socket, data) {
   var collection = database.collection("tournaments");
   var query = { isActive: "true" };
-  collection.find(query, function (err, result) {
+  collection.find(query).toArray(function (err, result) {
     if (err) {
       console.log(err);
     } else {
