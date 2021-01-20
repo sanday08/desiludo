@@ -99,6 +99,36 @@ exports.Check_Rooms = function (socket, data) {
 
 exports.CreateRoom = function (socket, userInfo) {
   let collection = database.collection("Room_Data");
+  let collectionBots = database.collection("bots");
+  var queryBots = {
+    bet: data.stake_money,
+    status: "true",
+    is_available: "true",
+  };
+  var isBotsActive = 0;
+  collectionBots.findOne(queryBots, function (err, result) {
+    if (err) console.log(err);
+    else {
+      if (result == null) {
+        isBotsActive = 0;
+      } else {
+        var queryBotsUpdate = {
+          _id: result._id,
+          bet: data.stake_money,
+          status: "true",
+          is_available: "true",
+        };
+        collection.updateOne(
+          queryBotsUpdate,
+          { $set: { is_available: "false" } },
+          function (err) {
+            if (err) throw err;
+          }
+        );
+        isBotsActive = 1;
+      }
+    }
+  });
 
   collection
     .find()
@@ -129,7 +159,15 @@ exports.CreateRoom = function (socket, userInfo) {
             throw err;
           } else {
             var mydata =
-              "{" + '"result" : "success",' + '"roomID" : "' + id + '"' + "}";
+              "{" +
+              '"result" : "success",' +
+              '"isBotsActive":"' +
+              isBotsActive +
+              '",' +
+              '"roomID" : "' +
+              id +
+              '"' +
+              "}";
             socket.emit("REQ_CREATE_ROOM_RESULT", JSON.parse(mydata));
             gamemanager.addroom(
               id,
