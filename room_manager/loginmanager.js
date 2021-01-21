@@ -203,7 +203,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     var roomAmount = userInfo.roomAmount;
     var numPlayer = userInfo.numPlayer;
     console.log("comsiisson }}}}}}}}}}}}}}}}", userInfo);
-    var commission = (roomAmount * numPlayer * 10) / 100;
+    var commission = (roomAmount * numPlayer * 5) / 100;
     console.log("comsiisson }}}}}}}}}}}}}}}}", commission);
     let commissionCollection = database.collection("Commission");
     let queryCommsion = {
