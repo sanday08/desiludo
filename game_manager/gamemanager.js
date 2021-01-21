@@ -97,18 +97,17 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
         exports.GetUserListInRoom(roomid);
 
         console.log(
-          "roomlist roomid 33333 " +
-            roomlist[index].playerlist.length +
-            "===" +
-            roomlist[index].seatlimit
+          "roomlist roomid 33333 " + roomlist[index].playerlist.length
         );
+
         if (roomlist[index].playerlist.length == roomlist[index].seatlimit) {
           roomlist[index].turnuser = username;
           console.log("~ Match Successed ~");
           let mydata = {
             result: "success",
           };
-          io.sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
+          //io.sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
+          sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
           roomlist[index].status = "full";
           UpdateRoomStatus(roomid);
         }
