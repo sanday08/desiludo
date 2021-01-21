@@ -69,9 +69,13 @@ exports.GetRoomPassedTime = function (socket, data) {
 exports.playerenterroom = function (roomid, username, photo, socket) {
   socket.room = "r" + roomid;
   socket.username = username;
+
   console.log("playerenterroom " + roomid);
+
   socket.join("r" + roomid);
+
   console.log("roomlist.length 111111111 " + roomlist.length);
+
   if (roomlist.length > 0) {
     for (let index = 0; index < roomlist.length; index++) {
       if (roomlist[index].roomid == roomid) {
@@ -88,8 +92,16 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
         roomlist[index].playerlist.push(username);
         roomlist[index].playerphotos.push(photo);
         roomlist[index].earnScores.push(0);
+        console.log("roomlist roomid 22222 " + roomid);
 
         exports.GetUserListInRoom(roomid);
+
+        console.log(
+          "roomlist roomid 33333 " +
+            roomlist[index].playerlist.length +
+            "===" +
+            roomlist[index].seatlimit
+        );
         if (roomlist[index].playerlist.length == roomlist[index].seatlimit) {
           roomlist[index].turnuser = username;
           console.log("~ Match Successed ~");
