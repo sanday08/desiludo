@@ -199,11 +199,12 @@ exports.UpdateUserInfo = function (socket, userInfo) {
   //save commission
   //if(userInfo.has('roomID')){
   if (userInfo["roomID"] != undefined) {
-    var playerid = userInfo._id;
+    var playerid = userInfo.userID;
     var roomAmount = userInfo.roomAmount;
     var numPlayer = userInfo.numPlayer;
-
+    console.log("comsiisson }}}}}}}}}}}}}}}}", userInfo);
     var commission = (roomAmount * numPlayer * 10) / 100;
+    console.log("comsiisson }}}}}}}}}}}}}}}}", commission);
     let commissionCollection = database.collection("Commission");
     let queryCommsion = {
       winneruser: playerid,
