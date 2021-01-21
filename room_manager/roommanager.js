@@ -76,7 +76,7 @@ exports.Check_Rooms = function (socket, data) {
               '"result" : "success",' +
               '"isBotsActive" : "' +
               isBotsActive +
-              '"' +
+              '",' +
               '"roomID" : "' +
               rooms_wifi[0].roomID +
               '"' +
