@@ -48,7 +48,7 @@ exports.LogIn = function (socket, userInfo) {
           username: result.username,
           userid: result._id,
           photo: result.photo,
-          points: result.points,
+          points: result.points.toString(),
           level: result.level,
           online_multiplayer: result.online_multiplayer,
           friend_multiplayer: result.friend_multiplayer,
@@ -176,41 +176,66 @@ exports.GetUserInfo = function (socket, userInfo) {
   });
 };
 exports.UpdateUserInfo = function (socket, userInfo) {
-  var collection = database.collection("User_Data");
-  var query = { username: userInfo.username };
-  var online_multiplayer = {
-    played: parseInt(userInfo.online_played),
-    won: parseInt(userInfo.online_won),
-  };
-  var friend_multiplayer = {
-    played: parseInt(userInfo.friend_played),
-    won: parseInt(userInfo.friend_won),
-  };
-  var tokens_captured = {
-    mine: parseInt(userInfo.tokenscaptured_mine),
-    opponents: parseInt(userInfo.tokenscaptured_opponents),
-  };
-  var won_streaks = {
-    current: parseInt(userInfo.wonstreaks_current),
-    best: parseInt(userInfo.wonstreaks_best),
-  };
-  var data = {
-    points: parseInt(userInfo.points),
-    level: parseInt(userInfo.level),
-    online_multiplayer: online_multiplayer,
-    friend_multiplayer: friend_multiplayer,
-    tokens_captured: tokens_captured,
-    won_streaks: won_streaks,
-  };
-  collection.findOne(query, function (err, result) {
-    if (err) console.log(err);
-    else {
-      collection.updateOne(query, { $set: data }, function (err) {
-        if (err) throw err;
-        else socket.emit("REQ_UPDATE_USERINFO_RESULT", { result: "success" });
-      });
+    var collection = database.collection("User_Data");
+    var query = { username: userInfo.username };
+    var online_multiplayer = {
+      played: parseInt(userInfo.online_played),
+      won: parseInt(userInfo.online_won),
+    };
+    var friend_multiplayer = {
+      played: parseInt(userInfo.friend_played),
+      won: parseInt(userInfo.friend_won),
+    };
+    var tokens_captured = {
+      mine: parseInt(userInfo.tokenscaptured_mine),
+      opponents: parseInt(userInfo.tokenscaptured_opponents),
+    };
+    var won_streaks = {
+      current: parseInt(userInfo.wonstreaks_current),
+      best: parseInt(userInfo.wonstreaks_best),
+    };
+
+
+    //roomID roomAmount numPlayer
+    //save commission
+    //if(userInfo.has('roomID')){
+    if(roomlist['roomID'] != undefined){
+        var playerid=userInfo._id;
+        var roomAmount=userInfo.roomAmount;
+        var numPlayer=userInfo.numPlayer;
+
+        var commission=((roomAmount*numPlayer)*10)/100;
+        let commissionCollection = database.collection('Commission');
+        let query = {
+          winneruser: playerid,
+          commission: commission,
+          roomPrice: roomAmount,
+          numberOfPlayers: numPlayer
+        };
+        commissionCollection.insertOne(query, function (err) {
+            if (!err) {
+                console.log("commission info added");
+            }
+        });
     }
-  });
+
+    var data = {
+      points: parseInt(userInfo.points),
+      level: parseInt(userInfo.level),
+      online_multiplayer: online_multiplayer,
+      friend_multiplayer: friend_multiplayer,
+      tokens_captured: tokens_captured,
+      won_streaks: won_streaks,
+    };
+    collection.findOne(query, function (err, result) {
+      if (err) console.log(err);
+      else {
+        collection.updateOne(query, { $set: data }, function (err) {
+          if (err) throw err;
+          else socket.emit("REQ_UPDATE_USERINFO_RESULT", { result: "success" });
+        });
+      }
+    });
 };
 exports.Get_User_Photo = function (info, socket) {
   var buf = Buffer.from(info.photo_data, "base64");
