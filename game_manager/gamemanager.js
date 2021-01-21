@@ -106,8 +106,8 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
           let mydata = {
             result: "success",
           };
-          //io.sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
-          sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
+          io.sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
+          //sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
           roomlist[index].status = "full";
           UpdateRoomStatus(roomid);
         }
