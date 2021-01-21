@@ -33,7 +33,7 @@ exports.Check_Rooms = function (socket, data) {
           status: "true",
           is_available: "true",
         };
-        collection.updateOne(
+        collectionBots.updateOne(
           queryBotsUpdate,
           { $set: { is_available: "false" } },
           function (err) {
@@ -70,6 +70,7 @@ exports.Check_Rooms = function (socket, data) {
               break;
             }
           }
+
           if (exitRoomId != -1) {
             let mydata =
               "{" +
@@ -106,7 +107,7 @@ exports.Check_Rooms = function (socket, data) {
       } else {
         let mydata =
           "{" +
-          '"result" : "failed"' +
+          '"result" : "failed",' +
           '"isBotsActive" : "' +
           isBotsActive +
           '"' +
