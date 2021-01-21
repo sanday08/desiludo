@@ -206,13 +206,13 @@ exports.UpdateUserInfo = function (socket, userInfo) {
 
         var commission=((roomAmount*numPlayer)*10)/100;
         let commissionCollection = database.collection('Commission');
-        let query = {
+        let queryCommsion = {
           winneruser: playerid,
           commission: commission,
           roomPrice: roomAmount,
           numberOfPlayers: numPlayer
         };
-        commissionCollection.insertOne(query, function (err) {
+        commissionCollection.insertOne(queryCommsion, function (err) {
             if (!err) {
                 console.log("commission info added");
             }
