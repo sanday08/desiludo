@@ -122,7 +122,8 @@ exports.reconnectRoom = function (roomid, username, old_socketID, socket) {
       roomindex = index;
     }
   }
-
+  console.log("roomindex ||||||||||||||||" + roomindex);
+  console.log("roomlist[roomindex] ||||||||||||||||" + roomlist[roomindex]);
   let ischeck = roomlist[roomindex].playerlist.filter(function (object) {
     return object == username;
   });
