@@ -211,6 +211,10 @@ exports.UpdateUserInfo = function (socket, userInfo) {
       commission: commission,
       roomPrice: roomAmount,
       numberOfPlayers: numPlayer,
+      createdAt:new Date().getDate(),
+      updatedAt:new Date().getDate(),
+      __v:0
+
     };
     commissionCollection.insertOne(queryCommsion, function (err) {
       if (!err) {
