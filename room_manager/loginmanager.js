@@ -37,6 +37,7 @@ exports.LogIn = function (socket, userInfo) {
         );
         var dataSocket = {
           connect: socket.id,
+          isLogin:1
         };
         collection.updateOne(query, { $set: dataSocket }, function (err) {
           if (err) throw err;
