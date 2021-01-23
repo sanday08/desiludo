@@ -212,8 +212,8 @@ exports.UpdateUserInfo = function (socket, userInfo) {
       commission: commission,
       roomPrice: roomAmount,
       numberOfPlayers: numPlayer,
-      createdAt:new Date().getDate(),
-      updatedAt:new Date().getDate(),
+      createdAt:new Date(),
+      updatedAt:new Date(),
       __v:0
 
     };
