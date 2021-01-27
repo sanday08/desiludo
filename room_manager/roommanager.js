@@ -155,7 +155,7 @@ exports.CreateRoom = function (socket, userInfo) {
           status: "true",
           is_available: "true",
         };
-        collection.updateOne(
+        collectionBots.updateOne(
           queryBotsUpdate,
           { $set: { is_available: "false" } },
           function (err) {

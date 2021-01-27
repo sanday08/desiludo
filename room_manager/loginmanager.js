@@ -223,6 +223,20 @@ exports.UpdateUserInfo = function (socket, userInfo) {
   }
 
   console.log("BOT ID||||||||||",userInfo.userID+"===="+userInfo['userID']);
+    if(userInfo.botId!=undefined){
+      let collectionBots = database.collection("bots");
+      var queryBotsUpdate = {
+        _id: userInfo.botId,
+      };
+      collectionBots.updateOne(
+        queryBotsUpdate,
+        { $set: { is_available: "true" } },
+        function (err) {
+          if (err) throw err;
+        }
+      );
+    }
+
 
   var data = {
     points: parseInt(userInfo.points),
