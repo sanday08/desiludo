@@ -21,11 +21,13 @@ exports.Check_Rooms = function (socket, data) {
   };
 
   var isBotsActive = 0;
+  var botId = 0;
   collectionBots.findOne(queryBots, function (err, result) {
     if (err) console.log(err);
     else {
       if (result == null) {
         isBotsActive = 0;
+        botId=0;
       } else {
         var queryBotsUpdate = {
           _id: result._id,
@@ -41,6 +43,7 @@ exports.Check_Rooms = function (socket, data) {
           }
         );
         isBotsActive = 1;
+        botId=result.botid;
       }
     }
   });
@@ -78,6 +81,9 @@ exports.Check_Rooms = function (socket, data) {
               '"isBotsActive" : "' +
               isBotsActive +
               '",' +
+              '"botId" : "' +
+              botId +
+              '",' +
               '"roomID" : "' +
               rooms_wifi[0].roomID +
               '"' +
@@ -87,6 +93,9 @@ exports.Check_Rooms = function (socket, data) {
             let mydata =
               "{" +
               '"result" : "failed",' +
+              '"botId" : "' +
+              botId +
+              '",' +
               '"isBotsActive" : "' +
               isBotsActive +
               '"' +
@@ -97,6 +106,9 @@ exports.Check_Rooms = function (socket, data) {
           let mydata =
             "{" +
             '"result" : "failed",' +
+            '"botId" : "' +
+              botId +
+              '",' +
             '"isBotsActive" : "' +
             isBotsActive +
             '"' +
@@ -108,6 +120,9 @@ exports.Check_Rooms = function (socket, data) {
         let mydata =
           "{" +
           '"result" : "failed",' +
+          '"botId" : "' +
+          botId +
+          '",' +
           '"isBotsActive" : "' +
           isBotsActive +
           '"' +
@@ -127,6 +142,7 @@ exports.CreateRoom = function (socket, userInfo) {
     is_available: "true",
   };
   var isBotsActive = 0;
+  var botId = 0;
   collectionBots.findOne(queryBots, function (err, result) {
     if (err) console.log(err);
     else {
@@ -147,6 +163,7 @@ exports.CreateRoom = function (socket, userInfo) {
           }
         );
         isBotsActive = 1;
+        botId=result.botid;
       }
     }
   });
@@ -184,6 +201,9 @@ exports.CreateRoom = function (socket, userInfo) {
               '"result" : "success",' +
               '"isBotsActive":"' +
               isBotsActive +
+              '",' +
+              '"botId" : "' +
+              botId +
               '",' +
               '"roomID" : "' +
               id +

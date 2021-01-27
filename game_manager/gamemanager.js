@@ -357,7 +357,6 @@ function msToTime(duration) {
 }
 
 exports.GetTurnUser = function (socket, data) {
-
   console.log("111111111111111111....TurnUser",roomlist.length);
   for (let index = 0; index < roomlist.length; index++) {
     if (roomlist[index].roomid == data.roomid) {
