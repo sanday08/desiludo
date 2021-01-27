@@ -203,9 +203,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     var playerid = userInfo.userID;
     var roomAmount = userInfo.roomAmount;
     var numPlayer = userInfo.numPlayer;
-    console.log("comsiisson }}}}}}}}}}}}}}}}", userInfo);
     var commission = (roomAmount * numPlayer * 5) / 100;
-    console.log("comsiisson }}}}}}}}}}}}}}}}", commission);
     let commissionCollection = database.collection("Commission");
     let queryCommsion = {
       winneruser: playerid,
@@ -223,6 +221,8 @@ exports.UpdateUserInfo = function (socket, userInfo) {
       }
     });
   }
+
+  console.log("BOT ID||||||||||",userInfo.userID+"===="+userInfo['userID']);
 
   var data = {
     points: parseInt(userInfo.points),
