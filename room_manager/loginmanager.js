@@ -332,6 +332,30 @@ exports.WidrawalRequest = function (socket, data) {
         userid: data.userid,
         amount: data.amount,
       };
+      var collectionUser = database.collection("User_Data");
+      var queryUser = {
+        userid: data.userid,
+      };
+      var points = 0;
+      collectionUser.findOne(queryUser, function (err, result) {
+        if (err) console.log(err);
+        else {
+          points = parseInt(result.points) - parseInt(data.amount);
+          var dataUser = {
+            points: points,
+          };
+
+          collectionUser.updateOne(
+            queryUser,
+            { $set: dataUser },
+            function (err) {
+              if (err) throw err;
+              else console.log("user coin updated.......");
+            }
+          );
+        }
+      });
+
       socket.emit("GET_WITHDRAWAL_RESULT", mydata);
     }
   });
