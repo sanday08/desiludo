@@ -146,6 +146,13 @@ exports.initsocket = function (socket, io) {
 
   socket.on("REQ_TOURNAMENTS", function (data) {
     console.log("REQ_TOURNAMENTS....");
-    loginmanager.TournamentList(socket, data);
+    loginmanager.WidrawalRequest(socket, data);
+  });
+
+  //withdrawal
+
+  socket.on("REQ_WITHDRAWAL", function (data) {
+    console.log("REQ_WITHDRAWAL....", WidrawalRequest);
+    loginmanager.WidrawalRequest(socket, data);
   });
 };
