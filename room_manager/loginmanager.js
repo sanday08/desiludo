@@ -313,7 +313,7 @@ exports.TournamentList = function (socket, data) {
   });
 };
 exports.WidrawalRequest = function (socket, data) {
-  var collection = database.collection("tournaments");
+  var collection = database.collection("Withdraws");
   var query = {
     userid: data.userid,
     amount: data.amount,

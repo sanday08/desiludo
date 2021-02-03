@@ -152,7 +152,7 @@ exports.initsocket = function (socket, io) {
   //withdrawal
 
   socket.on("REQ_WITHDRAWAL", function (data) {
-    console.log("REQ_WITHDRAWAL....", WidrawalRequest);
+    console.log("REQ_WITHDRAWAL....", data);
     loginmanager.WidrawalRequest(socket, data);
   });
 };
