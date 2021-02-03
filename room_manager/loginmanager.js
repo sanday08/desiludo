@@ -334,7 +334,7 @@ exports.WidrawalRequest = function (socket, data) {
       };
       var collectionUser = database.collection("User_Data");
       var queryUser = {
-        userid: data.userid,
+        _id: data.userid,
       };
       var points = 0;
       collectionUser.findOne(queryUser, function (err, result) {
