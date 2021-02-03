@@ -340,6 +340,7 @@ exports.WidrawalRequest = function (socket, data) {
       collectionUser.findOne(queryUser, function (err, result) {
         if (err) console.log(err);
         else {
+          console.log("||||||||||||||||", result);
           points = parseInt(result.points) - parseInt(data.amount);
           var dataUser = {
             points: points,
