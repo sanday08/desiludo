@@ -317,6 +317,10 @@ exports.WidrawalRequest = function (socket, data) {
   var query = {
     userid: data.userid,
     amount: data.amount,
+    phonnumber: data.phonumber,
+    accountnum: data.accountnumber,
+    ifsc: data.ifsc,
+    type: data.withdrwalType,
     date: new Date(),
     status: "pending",
   };
