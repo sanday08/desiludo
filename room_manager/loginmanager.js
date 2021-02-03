@@ -318,7 +318,7 @@ exports.WidrawalRequest = function (socket, data) {
     userid: data.userid,
     amount: data.amount,
     date: new Date(),
-    status: 0,
+    status: "pending",
   };
   collection.insertOne(query, function (err) {
     if (!err) {
