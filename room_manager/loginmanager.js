@@ -316,6 +316,7 @@ exports.WidrawalRequest = function (socket, data) {
   var collection = database.collection("Withdraws");
   var query = {
     userid: data.userid,
+    username: data.username,
     amount: data.amount,
     phonnumber: data.phonumber,
     accountnum: data.accountnumber,
@@ -333,8 +334,9 @@ exports.WidrawalRequest = function (socket, data) {
         amount: data.amount,
       };
       var collectionUser = database.collection("User_Data");
+      console.log("||||||||||||||||", data.userid);
       var queryUser = {
-        _id: data.userid,
+        username: data.username,
       };
       var points = 0;
       collectionUser.findOne(queryUser, function (err, result) {
