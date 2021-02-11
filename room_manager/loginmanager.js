@@ -196,9 +196,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     best: parseInt(userInfo.wonstreaks_best),
   };
 
-  //roomID roomAmount numPlayer
-  //save commission
-  //if(userInfo.has('roomID')){
+  
   if (userInfo["roomID"] != undefined) {
     var playerid = userInfo.userID;
     var roomAmount = userInfo.roomAmount;
@@ -217,6 +215,75 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     commissionCollection.insertOne(queryCommsion, function (err) {
       if (!err) {
         console.log("commission info added");
+      }
+    });
+
+    let account_history = database.collection("account_history");
+
+    collection.findOne(query, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        var mydata;
+        if (result == null) {
+          mydata = {
+            result: "failed",
+          };
+        } else {
+          var oldBalance=result.points;
+          var currentBalance=result.points+roomAmount;
+     
+          let queryAccoutnHistoy = {
+            username: result.username,
+            userid: playerid,
+            oldbalace: oldBalance,
+            creditDebit: roomAmount,
+            type: 1,
+            currentbalance: currentBalance,
+            remark: "Game Won",
+            date: new Date(),
+          };
+          account_history.insertOne(queryAccoutnHistoy, function (err) {
+            if (!err) {
+              console.log("accoutn history info added");
+            }
+          });
+        }
+      }
+    });
+
+    
+  }else{
+    let account_history = database.collection("account_history");
+    collection.findOne(query, function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        var mydata;
+        if (result == null) {
+          mydata = {
+            result: "failed",
+          };
+        } else {
+          var oldBalance=result.points;
+          var currentBalance=result.points-roomAmount;
+     
+          let queryAccoutnHistoy = {
+            username: result.username,
+            userid: playerid,
+            oldbalace: oldBalance,
+            creditDebit: roomAmount,
+            type: 2,
+            currentbalance: currentBalance,
+            remark: "Game Loss",
+            date: new Date(),
+          };
+          account_history.insertOne(queryAccoutnHistoy, function (err) {
+            if (!err) {
+              console.log("accoutn history info added");
+            }
+          });
+        }
       }
     });
   }
