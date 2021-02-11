@@ -460,7 +460,7 @@ exports.WidrawalRequest = function (socket, data) {
     
           let queryAccoutnHistoy = {
             username: result.username,
-            userid: result._id,
+            userid: data.userid,
             oldbalace: oldBalance,
             creditDebit: data.amount,
             type: 2,
