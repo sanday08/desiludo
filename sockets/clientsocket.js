@@ -155,4 +155,11 @@ exports.initsocket = function (socket, io) {
     console.log("REQ_WITHDRAWAL....", data);
     loginmanager.WidrawalRequest(socket, data);
   });
+
+  //accountHistory
+
+  socket.on("REQ_ACCOUNT_HISTORY", function (data) {
+    console.log("REQ_ACCOUNT_HISTORY....", data);
+    loginmanager.AccountHistoryRequest(socket, data);
+  });
 };
