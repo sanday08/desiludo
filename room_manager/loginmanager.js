@@ -452,6 +452,30 @@ exports.WidrawalRequest = function (socket, data) {
               else console.log("user coin updated.......");
             }
           );
+          //add history entry
+          let account_history = database.collection("account_history");
+
+          var oldBalance=result.points;
+          var currentBalance=points;
+    
+          let queryAccoutnHistoy = {
+            username: result.username,
+            userid: result._id,
+            oldbalace: oldBalance,
+            creditDebit: data.amount,
+            type: 2,
+            currentbalance: currentBalance,
+            remark: "Withdrwal amount",
+            date: new Date(),
+          };
+          account_history.insertOne(queryAccoutnHistoy, function (err) {
+            if (!err) {
+              console.log("accoutn history info added");
+            }
+          });
+
+
+
         }
       });
 
