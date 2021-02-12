@@ -162,4 +162,11 @@ exports.initsocket = function (socket, io) {
     console.log("REQ_ACCOUNT_HISTORY....", data);
     loginmanager.AccountHistoryRequest(socket, data);
   });
+
+  //accountHistory
+
+  socket.on("REQ_WHATSAPP", function (data) {
+    console.log("REQ_WHATSAPP....", data);
+    loginmanager.WhatsappRequest(socket, data);
+  });
 };
