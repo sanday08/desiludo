@@ -231,7 +231,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
           };
         } else {
           var oldBalance=result.points;
-          var currentBalance=result.points+roomAmount;
+          var currentBalance=parseInt(result.points)+parseInt(roomAmount);
      
           let queryAccoutnHistoy = {
             username: result.username,
@@ -266,7 +266,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
           };
         } else {
           var oldBalance=result.points;
-          var currentBalance=result.points-roomAmount;
+          var currentBalance=parseInt(result.points)-parseInt(roomAmount);
      
           let queryAccoutnHistoy = {
             username: result.username,
@@ -274,7 +274,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
             oldbalace: oldBalance,
             creditDebit: roomAmount,
             type: 2,
-            currentbalance: currentBalance,
+            currentbalance: currentBalance.toString(),
             remark: "Game Loss",
             date: new Date(),
           };
