@@ -144,9 +144,9 @@ exports.initsocket = function (socket, io) {
 
   //tournament
 
-  socket.on("REQ_TOURNAMENTS", function (data) {
+  socket.on("REQ_TOURNAMENTS", function () {
     console.log("REQ_TOURNAMENTS....");
-    loginmanager.WidrawalRequest(socket, data);
+    loginmanager.TournamentList(socket);
   });
 
   //withdrawal
@@ -165,8 +165,8 @@ exports.initsocket = function (socket, io) {
 
   //accountHistory
 
-  socket.on("REQ_WHATSAPP", function (data) {
-    console.log("REQ_WHATSAPP....", data);
-    loginmanager.WhatsappRequest(socket, data);
+  socket.on("REQ_WHATSAPP", function () {
+    console.log("REQ_WHATSAPP....");
+    loginmanager.WhatsappRequest(socket);
   });
 };

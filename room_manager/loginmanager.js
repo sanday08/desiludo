@@ -352,7 +352,7 @@ exports.Get_User_Photo = function (info, socket) {
     }
   );
 };
-exports.TournamentList = function (socket, data) {
+exports.TournamentList = function (socket) {
   var collection = database.collection("tournaments");
   var query = { isActive: "true" };
   collection.find(query).toArray(function (err, result) {
@@ -380,7 +380,7 @@ exports.TournamentList = function (socket, data) {
   });
 };
 
-exports.WhatsappRequest = function (socket, data) {
+exports.WhatsappRequest = function (socket) {
   var collection = database.collection("whatsapp_group");
   
   collection.find().toArray(function (err, result) {
