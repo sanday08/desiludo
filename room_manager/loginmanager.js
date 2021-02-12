@@ -232,12 +232,12 @@ exports.UpdateUserInfo = function (socket, userInfo) {
         } else {
           var oldBalance=result.points;
           var currentBalance=parseInt(result.points)+parseInt(roomAmount);
-     
+          var winningAmount = (roomAmount * numPlayer * 5) -commission;
           let queryAccoutnHistoy = {
             username: result.username,
             userid: playerid,
             oldbalace: oldBalance,
-            creditDebit: roomAmount,
+            creditDebit: winningAmount,
             type: 1,
             currentbalance: currentBalance,
             remark: "Game Won",
