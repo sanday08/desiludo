@@ -251,9 +251,9 @@ exports.UpdateUserInfo = function (socket, userInfo) {
         }
       }
     });
-
-    
   }else{
+    var playerid = userInfo.userID;
+    var roomAmount = userInfo.roomAmount;
     let account_history = database.collection("account_history");
     collection.findOne(query, function (err, result) {
       if (err) {
