@@ -110,6 +110,7 @@ exports.initsocket = function (socket, io) {
   });
 
   socket.on("REQ_UPDATE_USERINFO", function (data) {
+    console.log("REQ_UPDATE_USERINFO....",data);
     loginmanager.UpdateUserInfo(socket, data);
   });
 
@@ -163,7 +164,7 @@ exports.initsocket = function (socket, io) {
     loginmanager.AccountHistoryRequest(socket, data);
   });
 
-  //accountHistory
+  //REQ_WHATSAPP
 
   socket.on("REQ_WHATSAPP", function () {
     console.log("REQ_WHATSAPP....");

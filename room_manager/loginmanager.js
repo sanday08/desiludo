@@ -274,7 +274,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
             oldbalace: oldBalance,
             creditDebit: roomAmount,
             type: 2,
-            currentbalance: currentBalance.toString(),
+            currentbalance: currentBalance,
             remark: "Game Loss",
             date: new Date(),
           };
