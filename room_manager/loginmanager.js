@@ -382,7 +382,8 @@ exports.TournamentList = function (socket) {
 
 exports.WhatsappRequest = function (socket) {
   var collection = database.collection("whatsapp_group");
-  
+  /* var collection = database.collection("appstop");
+  var query = { name: "whtsappGroup" }; */
   collection.find().toArray(function (err, result) {
     if (err) {
       console.log(err);
@@ -395,6 +396,7 @@ exports.WhatsappRequest = function (socket) {
       } else {
         console.log("TTTTTTTTTTTTTTTTTTTT", result.length);
         for (var i = 0; i < result.length; i++) {
+          
           mydata = {
             result: "success",
             count: result.length,
