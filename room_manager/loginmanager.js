@@ -408,6 +408,35 @@ exports.WhatsappRequest = function (socket) {
     }
   });
 };
+exports.AppStopRequest = function (socket) {
+  var collection = database.collection("appstop");
+
+  var query = { name: "appstop" }; 
+  collection.find(query).toArray(function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      var mydata;
+      if (result == null) {
+        mydata = {
+          result: "failed",
+        };
+      } else {
+        console.log("TTTTTTTTTTTTTTTTTTTT", result.length);
+        for (var i = 0; i < result.length; i++) {
+          
+          mydata = {
+            result: "success",
+            count: result.length,
+            data: result,
+          };
+        }
+      }
+      socket.emit("GET_WHATSAPP_RESULT", mydata);
+    }
+  });
+};
+
 exports.AccountHistoryRequest = function (socket, data) {
   var collection = database.collection("account_history");
   let query = {
