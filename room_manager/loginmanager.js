@@ -381,10 +381,10 @@ exports.TournamentList = function (socket) {
 };
 
 exports.WhatsappRequest = function (socket) {
-  var collection = database.collection("whatsapp_group");
-  /* var collection = database.collection("appstop");
-  var query = { name: "whtsappGroup" }; */
-  collection.find().toArray(function (err, result) {
+  //var collection = database.collection("whatsapp_group");
+  var collection = database.collection("appstop");
+  var query = { name: "whtsappGroup" };
+  collection.find(query).toArray(function (err, result) {
     if (err) {
       console.log(err);
     } else {
