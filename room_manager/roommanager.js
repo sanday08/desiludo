@@ -136,23 +136,7 @@ exports.Check_Rooms = function (socket, data) {
 exports.CreateRoom = function (socket, userInfo) {
   let collection = database.collection("Room_Data");
   let collectionBots = database.collection("bots");
-  let collectionGamePlayHistory = database.collection("Game_Play_History");
-  let queryGamePlayHistory = {
-    username: userInfo.username,
-    bet: userInfo.stake_money,
-    game_status:"play",
-    game_mode: userInfo.game_mode,
-    wifi_mode: userInfo.wifi_mode,
-    seat_limit: parseInt(userInfo.seat_limit),
-    date: new Date(),
-  };
-  var gamePlayHistoryID=0;
-  collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
-    if (!err) {
-      console.log("queryGamePlayHistory info added",result);
-      gamePlayHistoryID=result._id;
-    }
-  });
+  
   console.log("gamePlayHistoryID||||",gamePlayHistoryID);
   var queryBots = {
     bet: userInfo.stake_money,
@@ -222,9 +206,6 @@ exports.CreateRoom = function (socket, userInfo) {
               '",' +
               '"botId" : "' +
               botId +
-              '",' +
-              '"gamePlayHistoryID" : "' +
-              gamePlayHistoryID +
               '",' +
               '"roomID" : "' +
               id +

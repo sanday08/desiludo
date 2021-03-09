@@ -48,10 +48,12 @@ exports.initsocket = function (socket, io) {
   });
 
   socket.on("REQ_CREATE_ROOM", function (data) {
+    console.log("REQ_CREATE_ROOM....",data);
     roommanager.CreateRoom(socket, data);
   });
 
   socket.on("REQ_JOIN_ROOM", function (data) {
+    console.log("REQ_JOIN_ROOM....",data);
     roommanager.JoinRoom(socket, data);
   });
   socket.on("Game_Fore_End", function (data) {

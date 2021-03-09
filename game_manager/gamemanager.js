@@ -75,15 +75,35 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
   socket.join("r" + roomid);
 
   console.log("roomlist.length 111111111 " + roomlist.length);
-
+  
   if (roomlist.length > 0) {
     for (let index = 0; index < roomlist.length; index++) {
       if (roomlist[index].roomid == roomid) {
+
+        let collectionGamePlayHistory = database.collection("Game_Play_History");
+        let queryGamePlayHistory = {
+          username: roomlist[index].username,
+          bet: roomlist[index].stake_money,
+          game_status:"play",
+          game_mode: roomlist[index].game_mode,
+          wifi_mode: roomlist[index].wifi_mode,
+          seat_limit: parseInt(roomlist[index].seatlimit),
+          date: new Date(),
+        };
+        var gamePlayHistoryID=0;
+        collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
+          if (!err) {
+            console.log("queryGamePlayHistory info added",result);
+            gamePlayHistoryID=result.ops[0]._id;
+          }
+        });
+        
         for (let i = 0; i < roomlist[index].playerlist.length; i++) {
           let user = roomlist[index].playerlist[i];
           if (user == username) {
             let mydata = {
               result: "failed",
+              gamePlayHistoryID :  gamePlayHistoryID 
             };
             socket.emit("REQ_ENTER_ROOM_RESULT", mydata);
             return;
@@ -105,6 +125,8 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
           console.log("~ Match Successed ~");
           let mydata = {
             result: "success",
+            gamePlayHistoryID :  gamePlayHistoryID 
+              
           };
           io.sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
           //sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
