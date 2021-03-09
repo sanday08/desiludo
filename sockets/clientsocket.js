@@ -170,8 +170,8 @@ exports.initsocket = function (socket, io) {
     console.log("REQ_WHATSAPP....");
     loginmanager.WhatsappRequest(socket);
   });
-  //REQ_WHATSAPP
 
+  //REQ_APP_STOP
   socket.on("REQ_APP_STOP", function () {
     console.log("REQ_APP_STOP....");
     loginmanager.AppStopRequest(socket);
