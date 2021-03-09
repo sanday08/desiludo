@@ -199,7 +199,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
   if (userInfo["gamePlayHistoryID"] != undefined) {
     let collectionGamePlayHistory = database.collection("Game_Play_History");
     var queryGamePlayUpdate = {
-      _id: userInfo.botId,
+      _id: userInfo.gamePlayHistoryID,
     };
     collectionGamePlayHistory.updateOne(
       queryGamePlayUpdate,

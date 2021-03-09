@@ -75,29 +75,10 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
   socket.join("r" + roomid);
 
   console.log("roomlist.length 111111111 " + roomlist.length);
-  
+  var gamePlayHistoryID=0;
   if (roomlist.length > 0) {
     for (let index = 0; index < roomlist.length; index++) {
       if (roomlist[index].roomid == roomid) {
-
-        let collectionGamePlayHistory = database.collection("Game_Play_History");
-        let queryGamePlayHistory = {
-          username: roomlist[index].username,
-          bet: roomlist[index].stake_money,
-          game_status:"play",
-          game_mode: roomlist[index].game_mode,
-          wifi_mode: roomlist[index].wifi_mode,
-          seat_limit: parseInt(roomlist[index].seatlimit),
-          date: new Date(),
-        };
-        var gamePlayHistoryID=0;
-        collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
-          if (!err) {
-            console.log("queryGamePlayHistory info added",result);
-            gamePlayHistoryID=result.ops[0]._id;
-          }
-        });
-        console.log("gamePlayHistoryID||||",gamePlayHistoryID);
         for (let i = 0; i < roomlist[index].playerlist.length; i++) {
           let user = roomlist[index].playerlist[i];
           if (user == username) {
@@ -121,6 +102,27 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
         );
 
         if (roomlist[index].playerlist.length == roomlist[index].seatlimit) {
+
+          let collectionGamePlayHistory = database.collection("Game_Play_History");
+          let queryGamePlayHistory = {
+            username: roomlist[index].username,
+            bet: roomlist[index].stake_money,
+            game_status:"play",
+            game_mode: roomlist[index].game_mode,
+            wifi_mode: roomlist[index].wifi_mode,
+            seat_limit: parseInt(roomlist[index].seatlimit),
+            date: new Date(),
+          };
+          
+          collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
+            if (!err) {
+              console.log("queryGamePlayHistory info added",result);
+              gamePlayHistoryID=result.insertedId;
+            }
+          });
+          console.log("gamePlayHistoryID||||",gamePlayHistoryID);
+
+
           roomlist[index].turnuser = username;
           console.log("~ Match Successed ~");
           let mydata = {
