@@ -432,7 +432,7 @@ exports.AppStopRequest = function (socket) {
           };
         }
       }
-      socket.emit("GET_WHATSAPP_RESULT", mydata);
+      socket.emit("GET_APP_STOP_RESULT", mydata);
     }
   });
 };
