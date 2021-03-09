@@ -583,6 +583,18 @@ exports.LeaveRoom = function (socket, data) {
                       );
                     }
                   });
+                  
+                    let collectionGamePlayHistory = database.collection("Game_Play_History");
+                    var queryGamePlayUpdate = {
+                      _id: data.gamePlayHistoryID,
+                    };
+                    collectionGamePlayHistory.updateOne(
+                      queryGamePlayUpdate,
+                      { $set: { game_status: "done" } },
+                      function (err) {
+                        if (err) throw err;
+                      }
+                    );
                 }
               } else if (roomlist[index].playerlist.length == 1) {
                 console.log("STOP! Everyone not me outsided~");
