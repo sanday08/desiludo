@@ -138,12 +138,13 @@ exports.CreateRoom = function (socket, userInfo) {
   let collectionBots = database.collection("bots");
   let collectionGamePlayHistory = database.collection("Game_Play_History");
   let queryGamePlayHistory = {
-    username: data.username,
+    username: userInfo.username,
     bet: userInfo.stake_money,
     game_status:"play",
+    game_mode: userInfo.game_mode,
+    wifi_mode: userInfo.wifi_mode,
     seat_limit: parseInt(userInfo.seat_limit),
     date: new Date(),
-    points: parseInt(data.points),
   };
   var gamePlayHistoryID=0;
   collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
