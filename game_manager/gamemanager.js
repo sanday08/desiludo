@@ -97,7 +97,7 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
             gamePlayHistoryID=result.ops[0]._id;
           }
         });
-        
+        console.log("gamePlayHistoryID||||",gamePlayHistoryID);
         for (let i = 0; i < roomlist[index].playerlist.length; i++) {
           let user = roomlist[index].playerlist[i];
           if (user == username) {

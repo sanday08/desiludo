@@ -137,7 +137,7 @@ exports.CreateRoom = function (socket, userInfo) {
   let collection = database.collection("Room_Data");
   let collectionBots = database.collection("bots");
   
-  console.log("gamePlayHistoryID||||",gamePlayHistoryID);
+  
   var queryBots = {
     bet: userInfo.stake_money,
     status: "true",
