@@ -196,7 +196,20 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     best: parseInt(userInfo.wonstreaks_best),
   };
 
-  
+  if (userInfo["gamePlayHistoryID"] != undefined) {
+    let collectionGamePlayHistory = database.collection("Game_Play_History");
+    var queryGamePlayUpdate = {
+      _id: userInfo.botId,
+    };
+    collectionGamePlayHistory.updateOne(
+      queryGamePlayUpdate,
+      { $set: { game_status: "done" } },
+      function (err) {
+        if (err) throw err;
+      }
+    );
+
+  }
   if (userInfo["roomID"] != undefined) {
     var playerid = userInfo.userID;
     var roomAmount = userInfo.roomAmount;
