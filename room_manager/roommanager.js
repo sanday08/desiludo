@@ -149,7 +149,7 @@ exports.CreateRoom = function (socket, userInfo) {
   var gamePlayHistoryID=0;
   collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
     if (!err) {
-      console.log("queryGamePlayHistory info added");
+      console.log("queryGamePlayHistory info added",result);
       gamePlayHistoryID=result._id;
     }
   });
