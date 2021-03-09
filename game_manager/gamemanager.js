@@ -105,7 +105,6 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
 
           let collectionGamePlayHistory = database.collection("Game_Play_History");
           let queryGamePlayHistory = {
-            username: roomlist[index].username,
             bet: roomlist[index].stake_money,
             game_status:"play",
             game_mode: roomlist[index].game_mode,
