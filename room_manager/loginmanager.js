@@ -216,10 +216,18 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     var numPlayer = userInfo.numPlayer;
     var commission = (roomAmount * numPlayer * 5) / 100;
     let commissionCollection = database.collection("Commission");
+
+    var userId=playerid;
+    var isbot="false";
+    if (userInfo.isBotsPlayer == 1) {
+      userId="bot_"+userInfo.botId;
+      isbot="true";
+    }
     let queryCommsion = {
       winneruser: playerid,
       commission: commission,
       roomPrice: roomAmount,
+      isBot:isbot,
       numberOfPlayers: numPlayer,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -268,6 +276,31 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     var playerid = userInfo.userID;
     var roomAmount = userInfo.roomAmount;
     let account_history = database.collection("account_history");
+    var numPlayer = userInfo.numPlayer;
+
+    var commission = (roomAmount * numPlayer * 5) / 100;
+    let commissionCollection = database.collection("Commission");
+    var userId=playerid;
+    var isbot="false";
+    if (userInfo.isBotsPlayer == 1) {
+      userId="bot_"+userInfo.botId;
+      isbot="true";
+    }
+    let queryCommsion = {
+      winneruser: playerid,
+      commission: commission,
+      roomPrice: roomAmount,
+      isBot:isbot,
+      numberOfPlayers: numPlayer,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      __v: 0,
+    };
+    commissionCollection.insertOne(queryCommsion, function (err) {
+      if (!err) {
+        console.log("commission info added");
+      }
+    });
     collection.findOne(query, function (err, result) {
       if (err) {
         console.log(err);
