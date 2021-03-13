@@ -216,21 +216,10 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     var numPlayer = userInfo.numPlayer;
     var commission = (roomAmount * numPlayer * 5) / 100;
     let commissionCollection = database.collection("Commission");
-
-    var userId=playerid;
-    var isbot="false";
-    if (userInfo.isBotsPlayer!=undefined) {
-      if(userInfo.isBotsPlayer == 1){
-        
-        userId="bot_"+userInfo.botId;
-        isbot="true";
-      }
-    }
     let queryCommsion = {
       winneruser: playerid,
       commission: commission,
       roomPrice: roomAmount,
-      isBot:isbot,
       numberOfPlayers: numPlayer,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -280,8 +269,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     var roomAmount = userInfo.roomAmount;
     let account_history = database.collection("account_history");
     var numPlayer = userInfo.numPlayer;
-
-    var commission = (roomAmount * numPlayer * 5) / 100;
+    /* var commission = (roomAmount * numPlayer * 5) / 100;
     let commissionCollection = database.collection("Commission");
     var userId=playerid;
     var isbot="false";
@@ -293,7 +281,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
       }
     }
     let queryCommsion = {
-      winneruser: playerid,
+      winneruser: userId,
       commission: commission,
       roomPrice: roomAmount,
       isBot:isbot,
@@ -301,7 +289,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
       createdAt: new Date(),
       updatedAt: new Date(),
       __v: 0,
-    };
+    }; */
     commissionCollection.insertOne(queryCommsion, function (err) {
       if (!err) {
         console.log("commission info added");
@@ -340,10 +328,6 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     });
   }
 
-  console.log(
-    "BOT ID||||||||||", "====" +userInfo.botId  + 
-    "--isBotsPlayer===--"+userInfo.isBotsPlayer
-  );
   if (userInfo.botId != undefined) {
     let collectionBots = database.collection("bots");
     var queryBotsUpdate = {
