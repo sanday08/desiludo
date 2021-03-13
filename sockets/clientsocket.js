@@ -112,7 +112,7 @@ exports.initsocket = function (socket, io) {
   });
 
   socket.on("REQ_UPDATE_USERINFO", function (data) {
-    console.log("REQ_UPDATE_USERINFO....",data);
+    console.log("REQ_UPDATE_USERINFO....");
     loginmanager.UpdateUserInfo(socket, data);
   });
 
