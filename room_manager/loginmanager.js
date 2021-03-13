@@ -219,9 +219,12 @@ exports.UpdateUserInfo = function (socket, userInfo) {
 
     var userId=playerid;
     var isbot="false";
-    if (userInfo.isBotsPlayer == 1) {
-      userId="bot_"+userInfo.botId;
-      isbot="true";
+    if (userInfo.isBotsPlayer!=undefined) {
+      if(userInfo.isBotsPlayer == 1){
+        
+        userId="bot_"+userInfo.botId;
+        isbot="true";
+      }
     }
     let queryCommsion = {
       winneruser: playerid,
@@ -282,9 +285,12 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     let commissionCollection = database.collection("Commission");
     var userId=playerid;
     var isbot="false";
-    if (userInfo.isBotsPlayer == 1) {
-      userId="bot_"+userInfo.botId;
-      isbot="true";
+    if (userInfo.isBotsPlayer!=undefined) {
+      if(userInfo.isBotsPlayer == 1){
+        
+        userId="bot_"+userInfo.botId;
+        isbot="true";
+      }
     }
     let queryCommsion = {
       winneruser: playerid,
