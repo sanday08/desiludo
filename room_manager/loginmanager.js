@@ -280,7 +280,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
         } else {
           var oldBalance=result.points;
           var currentBalance=parseInt(result.points)-parseInt(roomAmount);
-          console.log("room price||||||||||||||||||||||||||",socket);
+          console.log("room price||||||||||||||||||||||||||",socket.roomPrice);
           let queryAccoutnHistoy = {
             username: result.username,
             userid: playerid,

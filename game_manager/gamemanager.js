@@ -112,12 +112,11 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
         
         collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
           if (!err) {
-            console.log("queryGamePlayHistory info added",result);
+            
             gamePlayHistoryID=result.insertedId;
           }
         });
-        console.log("gamePlayHistoryID||||",gamePlayHistoryID);
-
+       
 
         if (roomlist[index].playerlist.length == roomlist[index].seatlimit) {
 
