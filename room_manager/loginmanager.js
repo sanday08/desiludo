@@ -335,7 +335,8 @@ exports.UpdateUserInfo = function (socket, userInfo) {
   }
 
   console.log(
-    "BOT ID||||||||||", "====" +userInfo.botId 
+    "BOT ID||||||||||", "====" +userInfo.botId  + 
+    "--isBotsPlayer===--"+userInfo.isBotsPlayer
   );
   if (userInfo.botId != undefined) {
     let collectionBots = database.collection("bots");
