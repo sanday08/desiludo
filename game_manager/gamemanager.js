@@ -107,15 +107,15 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
           seat_limit: parseInt(roomlist[index].seatlimit),
           date: new Date(),
         };
-        console.log(
-          "collectionGamePlayHistory 33333 " + collectionGamePlayHistory
-        );
+       
         collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
           if (!err) {
             gamePlayHistoryID=result.insertedId;
           }
         });
-       
+        console.log(
+          "collectionGamePlayHistory 33333 " + gamePlayHistoryID
+        );
 
         if (roomlist[index].playerlist.length == roomlist[index].seatlimit) {
           roomlist[index].turnuser = username;
