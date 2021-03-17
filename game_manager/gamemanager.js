@@ -97,9 +97,7 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
 
         exports.GetUserListInRoom(roomid);
 
-        console.log(
-          "roomlist roomid 33333 " + roomlist[index].playerlist.length
-        );
+        
         let collectionGamePlayHistory = database.collection("Game_Play_History");
         let queryGamePlayHistory = {
           bet: roomlist[index].stake_money,
@@ -109,19 +107,17 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
           seat_limit: parseInt(roomlist[index].seatlimit),
           date: new Date(),
         };
-        
+        console.log(
+          "collectionGamePlayHistory 33333 " + collectionGamePlayHistory
+        );
         collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
           if (!err) {
-            
             gamePlayHistoryID=result.insertedId;
           }
         });
        
 
         if (roomlist[index].playerlist.length == roomlist[index].seatlimit) {
-
-          
-
           roomlist[index].turnuser = username;
           console.log("~ Match Successed ~");
           let mydata = {
