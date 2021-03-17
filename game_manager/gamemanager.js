@@ -122,7 +122,7 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
           console.log("~ Match Successed ~");
           let mydata = {
             result: "success",
-            gamePlayHistoryID :  gamePlayHistoryID 
+            gamePlayHistoryID :  gamePlayHistoryID.toString() 
               
           };
           io.sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
