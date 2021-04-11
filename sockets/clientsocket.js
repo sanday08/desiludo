@@ -179,7 +179,7 @@ exports.initsocket = function (socket, io) {
     loginmanager.AppStopRequest(socket);
   });
 
-  socket.on("REQ_CHANGE_BOTS", function () {
+  socket.on("REQ_CHANGE_BOTS", function (data) {
     console.log("REQ_CHANGE_BOTSREQ_APP_STOP....");
     loginmanager.AppChangeBotsRequest(socket, data);
   });
