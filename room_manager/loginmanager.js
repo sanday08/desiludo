@@ -330,7 +330,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
   if (userInfo.botId != undefined) {
     let collectionBots = database.collection("bots");
     var queryBotsUpdate = {
-      _id: userInfo.botId,
+      botid: userInfo.botId,
     };
     collectionBots.updateOne(
       queryBotsUpdate,
@@ -364,7 +364,7 @@ exports.AppChangeBotsRequest = function (socket, userInfo) {
   console.log(userInfo);
   let collectionBots = database.collection("bots");
   var queryBotsUpdate = {
-    _id: userInfo.botId,
+    botid: userInfo.botId,
   };
   collectionBots.updateOne(
     queryBotsUpdate,
