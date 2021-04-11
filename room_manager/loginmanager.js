@@ -289,11 +289,11 @@ exports.UpdateUserInfo = function (socket, userInfo) {
       updatedAt: new Date(),
       __v: 0,
     }; */
-    commissionCollection.insertOne(queryCommsion, function (err) {
+    /* commissionCollection.insertOne(queryCommsion, function (err) {
       if (!err) {
         console.log("commission info added");
       }
-    });
+    }); */
     collection.findOne(query, function (err, result) {
       if (err) {
         console.log(err);
