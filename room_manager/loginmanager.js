@@ -208,7 +208,6 @@ exports.UpdateUserInfo = function (socket, userInfo) {
         if (err) throw err;
       }
     );
-
   }
   if (userInfo["roomID"] != undefined) {
     var playerid = userInfo.userID;
@@ -243,9 +242,9 @@ exports.UpdateUserInfo = function (socket, userInfo) {
             result: "failed",
           };
         } else {
-          var oldBalance=result.points;
-          var currentBalance=parseInt(result.points)+parseInt(roomAmount);
-          var winningAmount = (roomAmount * numPlayer * 5) -commission;
+          var oldBalance = result.points;
+          var currentBalance = parseInt(result.points) + parseInt(roomAmount);
+          var winningAmount = roomAmount * numPlayer * 5 - commission;
           let queryAccoutnHistoy = {
             username: result.username,
             userid: playerid,
@@ -264,7 +263,7 @@ exports.UpdateUserInfo = function (socket, userInfo) {
         }
       }
     });
-  }else{
+  } else {
     var playerid = userInfo.userID;
     var roomAmount = userInfo.roomAmount;
     let account_history = database.collection("account_history");
@@ -305,9 +304,9 @@ exports.UpdateUserInfo = function (socket, userInfo) {
             result: "failed",
           };
         } else {
-          var oldBalance=result.points;
-          var currentBalance=parseInt(result.points)-parseInt(roomAmount);
-          console.log("room price||||||||||||||||||||||||||",socket.roomPrice);
+          var oldBalance = result.points;
+          var currentBalance = parseInt(result.points) - parseInt(roomAmount);
+          console.log("room price||||||||||||||||||||||||||", socket.roomPrice);
           let queryAccoutnHistoy = {
             username: result.username,
             userid: playerid,
@@ -360,6 +359,23 @@ exports.UpdateUserInfo = function (socket, userInfo) {
     }
   });
 };
+
+exports.AppChangeBotsRequest = function (socket, userInfo) {
+  if (userInfo.botId != undefined) {
+    let collectionBots = database.collection("bots");
+    var queryBotsUpdate = {
+      _id: userInfo.botId,
+    };
+    collectionBots.updateOne(
+      queryBotsUpdate,
+      { $set: { is_available: "true" } },
+      function (err) {
+        if (err) throw err;
+      }
+    );
+  }
+};
+
 exports.Get_User_Photo = function (info, socket) {
   var buf = Buffer.from(info.photo_data, "base64");
   fs.writeFile(
@@ -432,7 +448,6 @@ exports.WhatsappRequest = function (socket) {
       } else {
         console.log("TTTTTTTTTTTTTTTTTTTT", result.length);
         for (var i = 0; i < result.length; i++) {
-          
           mydata = {
             result: "success",
             count: result.length,
@@ -447,7 +462,7 @@ exports.WhatsappRequest = function (socket) {
 exports.AppStopRequest = function (socket) {
   var collection = database.collection("appstop");
 
-  var query = { name: "appstop" }; 
+  var query = { name: "appstop" };
   collection.find(query).toArray(function (err, result) {
     if (err) {
       console.log(err);
@@ -460,7 +475,6 @@ exports.AppStopRequest = function (socket) {
       } else {
         console.log("TTTTTTTTTTTTTTTTTTTT", result.length);
         for (var i = 0; i < result.length; i++) {
-          
           mydata = {
             result: "success",
             count: result.length,
@@ -548,9 +562,9 @@ exports.WidrawalRequest = function (socket, data) {
           //add history entry
           let account_history = database.collection("account_history");
 
-          var oldBalance=result.points;
-          var currentBalance=points;
-    
+          var oldBalance = result.points;
+          var currentBalance = points;
+
           let queryAccoutnHistoy = {
             username: result.username,
             userid: data.userid,
@@ -566,9 +580,6 @@ exports.WidrawalRequest = function (socket, data) {
               console.log("accoutn history info added");
             }
           });
-
-
-
         }
       });
 
