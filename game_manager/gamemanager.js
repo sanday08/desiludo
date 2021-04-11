@@ -75,7 +75,7 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
   socket.join("r" + roomid);
 
   console.log("roomlist.length 111111111 " + roomlist.length);
-  var gamePlayHistoryID=0;
+  var gamePlayHistoryID = 0;
   if (roomlist.length > 0) {
     for (let index = 0; index < roomlist.length; index++) {
       if (roomlist[index].roomid == roomid) {
@@ -84,7 +84,7 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
           if (user == username) {
             let mydata = {
               result: "failed",
-              gamePlayHistoryID :  gamePlayHistoryID 
+              gamePlayHistoryID: gamePlayHistoryID,
             };
             socket.emit("REQ_ENTER_ROOM_RESULT", mydata);
             return;
@@ -97,33 +97,34 @@ exports.playerenterroom = function (roomid, username, photo, socket) {
 
         exports.GetUserListInRoom(roomid);
 
-        
-        let collectionGamePlayHistory = database.collection("Game_Play_History");
+        let collectionGamePlayHistory = database.collection(
+          "Game_Play_History"
+        );
         let queryGamePlayHistory = {
           bet: roomlist[index].stake_money,
-          game_status:"play",
+          game_status: "play",
           game_mode: roomlist[index].game_mode,
           wifi_mode: roomlist[index].wifi_mode,
           seat_limit: parseInt(roomlist[index].seatlimit),
           date: new Date(),
         };
-       
-        collectionGamePlayHistory.insertOne(queryGamePlayHistory, function (err,result) {
-          if (!err) {
-            gamePlayHistoryID=result.insertedId;
+
+        collectionGamePlayHistory.insertOne(
+          queryGamePlayHistory,
+          function (err, result) {
+            if (!err) {
+              gamePlayHistoryID = result.insertedId;
+            }
           }
-        });
-        console.log(
-          "collectionGamePlayHistory 33333 " + gamePlayHistoryID
         );
+        console.log("collectionGamePlayHistory 33333 " + gamePlayHistoryID);
 
         if (roomlist[index].playerlist.length == roomlist[index].seatlimit) {
           roomlist[index].turnuser = username;
           console.log("~ Match Successed ~");
           let mydata = {
             result: "success",
-            gamePlayHistoryID :  gamePlayHistoryID.toString() 
-              
+            gamePlayHistoryID: gamePlayHistoryID.toString(),
           };
           io.sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
           //sockets.in("r" + roomid).emit("REQ_ENTER_ROOM_RESULT", mydata);
@@ -376,7 +377,7 @@ function msToTime(duration) {
 }
 
 exports.GetTurnUser = function (socket, data) {
-  console.log("111111111111111111....TurnUser",roomlist.length);
+  console.log("111111111111111111....TurnUser", roomlist.length);
   for (let index = 0; index < roomlist.length; index++) {
     if (roomlist[index].roomid == data.roomid) {
       let username = data.username;
@@ -537,6 +538,20 @@ exports.LeaveRoom = function (socket, data) {
   socket.leave("r" + data.roomid);
   console.log(data.username, "has ", data.roomid, "room exit");
 
+  if (data.botId != undefined) {
+    let collectionBots = database.collection("bots");
+    var queryBotsUpdate = {
+      _id: data.botId,
+    };
+    collectionBots.updateOne(
+      queryBotsUpdate,
+      { $set: { is_available: "true" } },
+      function (err) {
+        if (err) throw err;
+      }
+    );
+  }
+
   if (roomlist.length > 0) {
     let removeindex = null;
     for (let index = 0; index < roomlist.length; index++) {
@@ -578,18 +593,20 @@ exports.LeaveRoom = function (socket, data) {
                       );
                     }
                   });
-                  
-                    let collectionGamePlayHistory = database.collection("Game_Play_History");
-                    var queryGamePlayUpdate = {
-                      _id: data.gamePlayHistoryID,
-                    };
-                    collectionGamePlayHistory.updateOne(
-                      queryGamePlayUpdate,
-                      { $set: { game_status: "done" } },
-                      function (err) {
-                        if (err) throw err;
-                      }
-                    );
+
+                  let collectionGamePlayHistory = database.collection(
+                    "Game_Play_History"
+                  );
+                  var queryGamePlayUpdate = {
+                    _id: data.gamePlayHistoryID,
+                  };
+                  collectionGamePlayHistory.updateOne(
+                    queryGamePlayUpdate,
+                    { $set: { game_status: "done" } },
+                    function (err) {
+                      if (err) throw err;
+                    }
+                  );
                 }
               } else if (roomlist[index].playerlist.length == 1) {
                 console.log("STOP! Everyone not me outsided~");
@@ -656,7 +673,6 @@ exports.OnDisconnect = function (socket) {
           for (let i = 0; i < roomlist[index].playerlist.length; i++) {
             if (roomlist[index].playerlist[i] == nickname) {
               isExist = true;
-
               num = i;
               break;
             }
