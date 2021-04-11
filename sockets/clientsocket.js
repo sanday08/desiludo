@@ -180,7 +180,7 @@ exports.initsocket = function (socket, io) {
   });
 
   socket.on("REQ_CHANGE_BOTS", function (data) {
-    console.log("REQ_CHANGE_BOTSREQ_APP_STOP....");
+    console.log("REQ_CHANGE_BOTS....", data);
     loginmanager.AppChangeBotsRequest(socket, data);
   });
 };

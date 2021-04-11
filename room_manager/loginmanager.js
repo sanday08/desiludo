@@ -361,19 +361,18 @@ exports.UpdateUserInfo = function (socket, userInfo) {
 };
 
 exports.AppChangeBotsRequest = function (socket, userInfo) {
-  if (userInfo.botId != undefined) {
-    let collectionBots = database.collection("bots");
-    var queryBotsUpdate = {
-      _id: userInfo.botId,
-    };
-    collectionBots.updateOne(
-      queryBotsUpdate,
-      { $set: { is_available: "true" } },
-      function (err) {
-        if (err) throw err;
-      }
-    );
-  }
+  console.log(userInfo);
+  let collectionBots = database.collection("bots");
+  var queryBotsUpdate = {
+    _id: userInfo.botId,
+  };
+  collectionBots.updateOne(
+    queryBotsUpdate,
+    { $set: { is_available: "true" } },
+    function (err) {
+      if (err) throw err;
+    }
+  );
 };
 
 exports.Get_User_Photo = function (info, socket) {
